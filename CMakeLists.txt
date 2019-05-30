@@ -1,15 +1,17 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0)
 project(rosperf)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+# Include ros compliancy
+include(ros_compliancy.cmake)
 
 find_package(catkin REQUIRED COMPONENTS
         roscpp
         rospy
         std_msgs
+        nodelet
         message_generation
         message_runtime
+        rosnodelets
         )
 
 add_message_files(FILES  Byte.msg Frame.msg Signal.msg)
@@ -34,6 +36,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+##############
+##   Nodes  ##
+##############
+
 # SENDER
 add_executable(sender app/sender.cc src/Sender.cc)
 add_dependencies(sender ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -42,3 +48,12 @@ target_link_libraries(sender ${catkin_LIBRARIES} )
 add_executable(receiver app/receiver.cc src/Receiver.cc)
 add_dependencies(receiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(receiver ${catkin_LIBRARIES} )
+
+##############
+## Nodelets ##
+##############
+    ############################  Sender  ############################
+    add_library(Sender_nodelet src/nodelets/Sender.cc)
+    add_dependencies(Sender_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+    target_link_libraries(Sender_nodelet ${catkin_LIBRARIES})
+    #|End Nodelets|

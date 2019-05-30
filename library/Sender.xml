@@ -1,0 +1,10 @@
+<library path="lib/libSender_nodelet">
+<class
+name="MarkNodelet/Sender"
+type="rosnodelets::Sender"
+base_class_type="nodelet::Nodelet">
+<description>
+Sender Nodelet implementation.
+</description>
+</class>
+</library>
