@@ -1,0 +1,18 @@
+<launch>
+    <!--  Run the nodelet manager -->
+    <include file ="$(find rosnodelets)/conf/manager/Manager.launch">
+        <arg name="manager_name" default="RosPerfManagerReceiver"/>
+    </include>
+    <!--  Receiver  -->
+    <include file ="$(find rosperf)/conf/nodelets/Receiver.internal">
+        <arg name="manager_name" default="RosPerfManagerReceiver"/>
+    </include>
+    <!--  Run the nodelet manager -->
+    <include file ="$(find rosnodelets)/conf/manager/Manager.launch">
+        <arg name="manager_name" default="RosPerfManagerSender"/>
+    </include>
+    <!--  Sender  -->
+    <include file ="$(find rosperf)/conf/nodelets/Sender.internal">
+        <arg name="manager_name" default="RosPerfManagerSender"/>
+    </include>
+</launch>

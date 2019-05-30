@@ -61,5 +61,6 @@
   <!-- The export tag contains other, unspecified, tags -->
   <export>
 	<nodelet plugin="${prefix}/library/Sender.xml"/>
+	<nodelet plugin="${prefix}/library/Receiver.xml"/>
 </export>
 </package>

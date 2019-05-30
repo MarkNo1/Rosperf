@@ -56,4 +56,8 @@ target_link_libraries(receiver ${catkin_LIBRARIES} )
     add_library(Sender_nodelet src/nodelets/Sender.cc)
     add_dependencies(Sender_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
     target_link_libraries(Sender_nodelet ${catkin_LIBRARIES})
+    ############################  Receiver  ############################
+    add_library(Receiver_nodelet src/nodelets/Receiver.cc)
+    add_dependencies(Receiver_nodelet ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+    target_link_libraries(Receiver_nodelet ${catkin_LIBRARIES})
     #|End Nodelets|

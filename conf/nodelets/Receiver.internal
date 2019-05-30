@@ -1,0 +1,30 @@
+<!-- - *************************************************************************
+*  @Nodelet Receiver
+*  @Header |NODELET_HEADER|
+*  @Source |NODELET_SOURCE|
+*  @Date   2019.05.30
+*  @Author  M. Treglia
+*
+*************************************************************************<!- -->
+
+
+<launch>
+    <arg name="manager_name" default="Manager"/>
+
+
+    <!-- Receiver -->
+    <node pkg="nodelet" type="nodelet"
+          args="load MarkNodelet/Receiver $(arg manager_name)"
+          name="Receiver"
+          output="screen"
+          respawn="true">
+
+        <!-- Dynamic Ros param-->
+        <!-- param name="benchmark" type = "bool" value ="true"/-->
+
+        <!-- Static Ros param-->
+        <rosparam>
+        </rosparam>
+    </node>
+
+</launch>

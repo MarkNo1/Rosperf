@@ -1,0 +1,10 @@
+<library path="lib/libReceiver_nodelet">
+<class
+name="MarkNodelet/Receiver"
+type="rosnodelets::Receiver"
+base_class_type="nodelet::Nodelet">
+<description>
+Receiver Nodelet implementation.
+</description>
+</class>
+</library>
