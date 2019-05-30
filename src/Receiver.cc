@@ -29,10 +29,13 @@ void rosperf::Receiver::callback(const rosperf::Frame::ConstPtr &frame) {
     }
     // Fail
     else {
+        // Copy last sequence
+        _last_sequence = frame->sequence;
+        // Increase fail case
         _fail_counter++;
         // Fail threshold times
         if (_fail_counter == _fail_threshold) {
-            Log();
+            Log(3);
             // Reset params
             reset();
             // Increase Payload
@@ -62,9 +65,16 @@ void rosperf::Receiver::reset() {
     _fail_counter = 0;
 }
 
-void rosperf::Receiver::Log() {
-    ROS_INFO("-- sequence(%d) hz(%f) dim(%f byte) success(%d) fails(%d)",
-            _last_sequence,_last_hz, _last_dim, _success_counter, _fail_counter);
+void rosperf::Receiver::Log(int status) {
+    // Warn
+    if (status == 1 )
+        ROS_WARN("-- sequence(%d) hz(%f) dim(%f byte) success(%d)", _last_sequence,_last_hz, _last_dim, _success_counter);
+    // Info
+    if (status == 2 )
+        ROS_INFO("-- sequence(%d) hz(%f) dim(%f byte) success(%d)", _last_sequence,_last_hz, _last_dim, _success_counter);
+    // Error
+    if (status == 3 )
+        ROS_ERROR("-- sequence(%d) hz(%f) dim(%f byte) success(%d)", _last_sequence,_last_hz, _last_dim, _success_counter);
 }
 
 void rosperf::Receiver::start() { ros::spin();}

@@ -4,7 +4,7 @@
 
 #include <rosperf/Sender.h>
 
-rosperf::Sender::Sender() : _sequence_counter(0), _payload_dim(10),_initial_hz(500), _hz(500), _success_rate(false){
+rosperf::Sender::Sender() : _sequence_counter(0), _payload_dim(10),_initial_hz(100), _hz(100), _success_rate(false){
     initialize();
 }
 
@@ -56,8 +56,6 @@ void rosperf::Sender::start() {
         ros::Rate loop(_hz);
         // Reset success condition
         _success_rate = false;
-        // Log
-//        Log();
         // Loop
         while (! _success_rate && ros::ok()) {
             // Send Frame

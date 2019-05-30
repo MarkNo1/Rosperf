@@ -24,7 +24,7 @@ namespace rosperf {
         // Reset
         void reset();
         // Log
-        void Log();
+        void Log(int status);
         // Start testing
         void start();
 
@@ -44,6 +44,7 @@ namespace rosperf {
         // Fail param
         int _fail_counter;
         int _fail_threshold;
+
 
 
     };
