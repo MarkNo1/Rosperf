@@ -44,7 +44,9 @@ namespace rosperf {
         // Fail param
         int _fail_counter;
         int _fail_threshold;
-
+        // Delay
+        float  _avg_delay;
+        float _accumulated_delay;
 
 
     };

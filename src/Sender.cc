@@ -4,7 +4,7 @@
 
 #include <rosperf/Sender.h>
 
-rosperf::Sender::Sender() : _sequence_counter(0), _payload_dim(10),_initial_hz(100), _hz(100), _success_rate(false){
+rosperf::Sender::Sender() : _sequence_counter(0), _payload_dim(100000),_initial_hz(100), _hz(100), _success_rate(false){
     initialize();
 }
 
@@ -36,6 +36,8 @@ void rosperf::Sender::send() {
     for (int i=0; i<_payload_dim; i++) {
         frame.payload.emplace_back(rosperf::Byte());
     }
+    // Add time
+    frame.header.stamp = ros::Time::now();
     // Publish
     _pub.publish(frame);
 

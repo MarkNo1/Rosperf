@@ -12,12 +12,8 @@ namespace rosnodelets {
     void Receiver::InitializeNodeletName() {SetName("Receiver");}
 
     void Receiver::InitializeNodelet() {
-        _last_sequence = 0;
-        _last_hz = 0;
-        _last_dim = 0;
-        _success_counter = 0;
+        Reset();
         _success_threshold = 10;
-        _fail_counter = 0;
         _fail_threshold = 3;
         LogInfo("Initialized");
     }
@@ -41,9 +37,11 @@ namespace rosnodelets {
             _last_sequence = frame->sequence;
             _last_hz = frame->hz;
             _last_dim = sizeof(rosperf::Byte) * frame->payload.size() + 16;
+            _last_delay = ros::Time::now() - frame->header.stamp;
             _success_counter++;
             // Success threshold times
             if(_success_counter == _success_threshold) {
+                Log(1);
                 // Reset
                 Reset();
                 // Increase Hz
@@ -58,7 +56,6 @@ namespace rosnodelets {
             _fail_counter++;
             // Fail threshold times
             if (_fail_counter == _fail_threshold) {
-                Log(3);
                 // Reset params
                 Reset();
                 // Increase Payload
@@ -76,17 +73,14 @@ namespace rosnodelets {
     }
 
     void Receiver::Reset() {
-        _last_hz = 0;
-        _last_dim = 0;
-        _last_sequence = 0;
-        _success_counter = 0;
-        _fail_counter = 0;
+        _last_hz =_last_dim = _last_sequence = _success_counter = _fail_counter  = 0;
+        _last_delay = ros::Duration(0);
     }
 
     void Receiver::Log(int status) {
         // Warn
         if (status == 1 )
-            ROS_WARN("-- sequence(%d) hz(%f) dim(%f byte) success(%d)", _last_sequence,_last_hz, _last_dim, _success_counter);
+            ROS_WARN("hz(%f) dim(%f byte) success(%d/100) - delay (%f ms)",_last_hz, _last_dim, _success_counter, (float) _last_delay.nsec / 1000000);
         // Info
         if (status == 2 )
             ROS_INFO("-- sequence(%d) hz(%f) dim(%f byte) success(%d)", _last_sequence,_last_hz, _last_dim, _success_counter);

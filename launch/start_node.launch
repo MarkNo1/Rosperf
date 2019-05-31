@@ -1,6 +1,6 @@
 <launch>
     <!--  Receiver  -->
-    <node pkg="rosperf" type="sender" name="sender" output="screen" />
+    <node pkg="rosperf" type="receiver" name="receiver" output="screen" />
     <!--  Sender  -->
-    <node pkg="rosperf" type="receiver" name="sender" output="screen" />
+    <node pkg="rosperf" type="sender" name="sender" output="screen" />
 </launch>

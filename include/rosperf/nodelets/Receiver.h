@@ -93,6 +93,9 @@ class Receiver : public base::NodeletBM {
     // Fail param
     int _fail_counter;
     int _fail_threshold;
+    // Last delay
+    ros::Duration _last_delay;
+
 };
 
 }  // namespace rosnodelets

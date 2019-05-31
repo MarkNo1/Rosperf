@@ -13,7 +13,7 @@ namespace rosnodelets {
 
     void Sender::InitializeNodelet() {
         _sequence_counter =0;
-        _payload_dim = 10;
+        _payload_dim = 100000;
         _initial_hz = 100;
         _hz= 100;
         _success_rate = false;
@@ -57,10 +57,13 @@ namespace rosnodelets {
         rosperf::Frame frame;
         frame.sequence = _sequence_counter;
         frame.hz = _hz;
+
         // Fill payload
         for (int i=0; i<_payload_dim; i++) {
             frame.payload.emplace_back(rosperf::Byte());
         }
+        // Add time
+        frame.header.stamp = ros::Time::now();
         // Publish
         _pub.publish(frame);
     }

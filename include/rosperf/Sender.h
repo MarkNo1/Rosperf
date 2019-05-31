@@ -11,6 +11,7 @@
 #include <rosperf/Signal.h>
 
 namespace rosperf {
+
     class Sender {
     public:
         Sender();
@@ -26,6 +27,7 @@ namespace rosperf {
         // Start testing
         void start();
 
+
     private:
         // Node
         ros::NodeHandle _node;
@@ -39,6 +41,7 @@ namespace rosperf {
         int _payload_dim;
         // Success rate
         bool _success_rate;
+
 
 
     };
